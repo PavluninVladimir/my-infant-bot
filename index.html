@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+    import {createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    createApp({
+        created() {
+            // const source = new EventSource("https://bot.my-infant.com/sse")
+            // const source = new EventSource("http://localhost:8181/sse")
+            const source = new EventSource("https://afd0-89-179-66-194.eu.ngrok.io/sse")
+            source.onmessage = (event) => {
+                let mess = JSON.parse(event.data)
+                this.add(mess)
+            }
+            source.onopen = function(e) {
+                console.log("Событие: open");
+            };
+            source.onerror = function(e) {
+                console.log("Событие: error");
+                if (this.readyState == EventSource.CONNECTING) {
+                    console.log(`Переподключение (readyState=${this.readyState})...`);
+                } else {
+                    console.log("Произошла ошибка.");
+                }
+            };
+        },
+        data() {
+            return {messages: []}
+        },
+        methods: {
+            add(message) {
+              this.messages.unshift(message)
+              if(this.messages.length > 5) this.messages.pop()
+            }
+        },
+        template: `
+        <section class="greeting" style="width: 100%; text-align: center">
+            <h2>Прямой эфир из Telegram-чата</h2>
+            <div v-for="item in messages" style="padding: 10px; margin: 10px; background-color: rgb(255 0 0 / 6%);">
+                <div style="display: flex; flex-flow: row nowrap; gap: 10px;">
+                <img src="ava.png"  style="width: 25px; height: 25px"/>
+                <p style="margin: 0; word-break: break-all; text-align: justify;">{{item}}</p>
+                </div>
+            </div>
+            <div style="margin-top: 10px;">
+                <a href="https://t.me/myinfantbest" target="_blank"><button style="width: 100%; height: 60px; max-width: 400px; background-color: #fd9cb6; color: white;">Перейти в чат для общения</button></a>
+            </div>
+        </section>`}).mount('#app')
+</script>
+</body>
+</html>

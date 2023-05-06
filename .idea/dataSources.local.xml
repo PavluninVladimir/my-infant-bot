@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-223.7571.182">
+    <data-source name="@localhost" uuid="de5353a8-e322-4001-b75c-a12d90c330bf">
+      <database-info product="Mongo DB" version="6.0.3" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.17" dbms="MONGO" exact-version="6.0.3" exact-driver-version="1.17" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="MyInfantBotDB" />
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>
